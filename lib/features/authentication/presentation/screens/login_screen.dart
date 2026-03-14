@@ -3,12 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/utils/constants/app_texts.dart';
-import '../../../../core/utils/constants/colors.dart';
-import '../../../../core/utils/validators/app_validator.dart';
 import '../../../../routes/app_routes.dart';
 import '../../controllers/login_controller.dart';
-import '../widgets/auth_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,8 +16,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animController;
-  late final Animation<double> _fadeAnim;
-  late final Animation<Offset> _slideAnim;
 
   @override
   void initState() {
@@ -38,17 +32,6 @@ class _LoginScreenState extends State<LoginScreen>
       duration: const Duration(milliseconds: 700),
     );
 
-    _fadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _animController, curve: Curves.easeIn),
-    );
-
-    _slideAnim = Tween<Offset>(
-      begin: const Offset(0.0, 0.18),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(parent: _animController, curve: Curves.easeOut),
-    );
-
     _animController.forward();
   }
 
@@ -63,198 +46,196 @@ class _LoginScreenState extends State<LoginScreen>
     final controller = Get.put(LoginController());
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
-      body: Column(
-        children: [
-          _buildHeader(),
-          Expanded(
-            child: FadeTransition(
-              opacity: _fadeAnim,
-              child: SlideTransition(
-                position: _slideAnim,
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Form(
-                    key: controller.formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 28.h),
-                        Text(
-                          AppText.loginTitle,
-                          style: TextStyle(
-                            fontSize: 24.sp,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
-                          ),
-                        ),
-                        SizedBox(height: 6.h),
-                        Text(
-                          AppText.loginSubtitle,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                        SizedBox(height: 28.h),
-
-                        // Email field
-                        AuthFieldLabel(AppText.emailLabel),
-                        SizedBox(height: 6.h),
-                        TextFormField(
-                          controller: controller.emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          textInputAction: TextInputAction.next,
-                          validator: AppValidator.validateEmail,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: AppColors.textPrimary,
-                          ),
-                          decoration: authInputDecoration(
-                            hint: AppText.emailHint,
-                            prefixIcon: Icons.email_outlined,
-                          ),
-                        ),
-                        SizedBox(height: 16.h),
-
-                        // Password field
-                        AuthFieldLabel(AppText.passwordLabel),
-                        SizedBox(height: 6.h),
-                        Obx(
-                          () => TextFormField(
-                            controller: controller.passwordController,
-                            obscureText: !controller.isPasswordVisible.value,
-                            textInputAction: TextInputAction.done,
-                            validator: AppValidator.validatePassword,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.textPrimary,
-                            ),
-                            decoration: authInputDecoration(
-                              hint: AppText.passwordHint,
-                              prefixIcon: Icons.lock_outline_rounded,
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  controller.isPasswordVisible.value
-                                      ? Icons.visibility_off_outlined
-                                      : Icons.visibility_outlined,
-                                  color: AppColors.textSecondary,
-                                  size: 20.sp,
-                                ),
-                                onPressed: controller.togglePasswordVisibility,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 6.h),
-
-                        // Forgot password link
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () => Get.toNamed(
-                                AppRoute.getForgotPasswordScreen()),
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              minimumSize: Size(0, 36.h),
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            child: Text(
-                              AppText.forgotPassword,
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20.h),
-
-                        // Login button
-                        Obx(
-                          () => AuthPrimaryButton(
-                            label: AppText.login,
-                            isLoading: controller.isLoading.value,
-                            onPressed: controller.isLoading.value
-                                ? null
-                                : controller.login,
-                          ),
-                        ),
-                        SizedBox(height: 24.h),
-
-                        // Sign up link
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              AppText.dontHaveAccount,
-                              style: TextStyle(
-                                color: AppColors.textSecondary,
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () =>
-                                  Get.toNamed(AppRoute.getSignUpScreen()),
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                minimumSize: Size(0, 36.h),
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              ),
-                              child: Text(
-                                AppText.signUp,
-                                style: TextStyle(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 24.h),
-                      ],
-                    ),
+      backgroundColor: const Color(0xFF0D0D0D),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 30.h),
+              Container(
+                width: 50.w,
+                height: 50.w,
+                decoration: const BoxDecoration(
+                  color: Color(0xFF0057FF),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.health_and_safety_outlined,
+                    color: Colors.white,
+                    size: 30.sp,
                   ),
                 ),
               ),
-            ),
+              SizedBox(height: 30.h),
+              Text(
+                'Welcome Back!',
+                style: TextStyle(
+                  fontSize: 28.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 8.h),
+              Text(
+                'Log in to your account to continue again.',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: Colors.white70,
+                ),
+              ),
+              SizedBox(height: 30.h),
+              Form(
+                key: controller.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Email ID:',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    TextFormField(
+                      controller: controller.emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        hintText: 'e.g. suraj@example.com',
+                        hintStyle: const TextStyle(color: Colors.white38),
+                        filled: true,
+                        fillColor: const Color(0xFF1A1A1A),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 20.h),
+                    Text(
+                      'Password:',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    TextFormField(
+                      controller: controller.passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: 'Type your password',
+                        hintStyle: const TextStyle(color: Colors.white38),
+                        filled: true,
+                        fillColor: const Color(0xFF1A1A1A),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 12.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: true,
+                              onChanged: (value) {},
+                              checkColor: Colors.black,
+                              activeColor: Colors.white,
+                              side: const BorderSide(color: Colors.white),
+                            ),
+                            const Text(
+                              'Save',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                          ],
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              Get.toNamed(AppRoute.forgotPasswordScreen),
+                          child: const Text(
+                            'Forgot Password?',
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 24.h),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.toNamed(AppRoute.otpScreen, arguments: 'login');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0057FF),
+                          padding: EdgeInsets.symmetric(vertical: 16.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                        ),
+                        child: Text(
+                          'Log In',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 24.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Don't have an account? ",
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                        GestureDetector(
+                          onTap: () => Get.toNamed(AppRoute.signUpScreen),
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              color: Color(0xFF0057FF),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30.h),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Or Continue with',
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/images/google_logo.png', height: 40.h),
+                        SizedBox(width: 30.w),
+                        Image.asset('assets/images/apple_logo.png', height: 40.h),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return AuthHeader(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(24.w, 20.h, 24.w, 28.h),
-        child: Row(
-          children: [
-            Container(
-              width: 42.w,
-              height: 42.w,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Icon(
-                Icons.health_and_safety_rounded,
-                color: Colors.white,
-                size: 24.sp,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Text(
-              AppText.appName,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ],
         ),
       ),
     );

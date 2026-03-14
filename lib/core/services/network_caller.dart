@@ -7,10 +7,6 @@ import '../models/response_data.dart';
 
 class NetworkCaller {
   final int timeoutDuration = 40;
-  static bool _isRefreshing = false;
-  static Completer<String?>? _refreshCompleter;
-  static int _retryCount = 0;
-  static const int _maxRetries = 3;
 
   // GET method
   Future<ResponseData> getRequest(String url, {String? token}) async {
