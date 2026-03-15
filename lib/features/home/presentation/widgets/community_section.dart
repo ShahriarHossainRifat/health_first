@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 
 class CommunitySection extends StatelessWidget {
   const CommunitySection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = DateFormat('EEE, d MMM').format(DateTime.now());
+    const formattedDate = 'Sun, 15 Mar';
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
@@ -24,10 +23,20 @@ class CommunitySection extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           Container(
+            width: double.infinity,
             padding: EdgeInsets.all(16.sp),
             decoration: BoxDecoration(
               color: const Color(0xFF2A2A2A),
               borderRadius: BorderRadius.circular(16.r),
+              image: DecorationImage(
+                image: const NetworkImage(
+                    'https://picsum.photos/800/600'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5),
+                  BlendMode.darken,
+                ),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
