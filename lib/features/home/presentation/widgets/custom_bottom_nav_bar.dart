@@ -26,9 +26,10 @@ class CustomBottomNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildNavItem(Icons.home, 'Home', 0),
-          _buildNavItem(Icons.timeline, 'Activity', 1),
-          _buildNavItem(Icons.chat_bubble, 'Chat', 2),
-          _buildNavItem(Icons.person, 'Profile', 3),
+          _buildNavItem(Icons.sentiment_satisfied, 'Mental', 1),
+          _buildNavItem(Icons.group, 'Community', 2),
+          _buildNavItem(Icons.event, 'Appointment', 3),
+          _buildNavItem(Icons.chat, 'Chat', 4),
         ],
       ),
     );

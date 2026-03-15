@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'tabs/activity_tab.dart';
-import 'tabs/chat_tab.dart';
 import 'tabs/home_tab.dart';
-import 'tabs/profile_tab.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,9 +14,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _tabs = [
     const HomeTab(),
-    const ActivityTab(),
-    const ChatTab(),
-    const ProfileTab(),
+    const Scaffold(body: Center(child: Text("Mental"))),
+    const Scaffold(body: Center(child: Text("Community"))),
+    const Scaffold(body: Center(child: Text("Appointment"))),
+    const Scaffold(body: Center(child: Text("Chat"))),
   ];
 
   void onTabTapped(int index) {
