@@ -49,5 +49,3 @@ lib/
 MIT License. See [LICENSE](LICENSE) for details.
 
 ---
-
-Feel free to modify and expand this template for your project needs!
