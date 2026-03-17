@@ -226,9 +226,9 @@ class _LoginScreenState extends State<LoginScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/images/google_logo.png', height: 40.h),
+                        Image.network('https://img.icons8.com/color/48/000000/google-logo.png', height: 40.h),
                         SizedBox(width: 30.w),
-                        Image.asset('assets/images/apple_logo.png', height: 40.h),
+                        Image.network('https://img.icons8.com/ios-glyphs/30/ffffff/apple.png', height: 40.h),
                       ],
                     ),
                   ],
