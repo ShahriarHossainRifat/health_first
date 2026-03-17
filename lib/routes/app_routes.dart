@@ -8,6 +8,7 @@ import '../features/home/presentation/screens/home_screen.dart';
 import '../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../features/onboarding/presentation/screens/take_selfie_screen.dart';
 import '../features/splash/presentation/screens/splash_screen.dart';
+import '../features/notification/presentation/screens/notification_screen.dart';
 
 class AppRoute {
   static const String splashScreen = '/';
@@ -18,6 +19,7 @@ class AppRoute {
   static const String takeSelfieScreen = '/takeSelfieScreen';
   static const String onboardingScreen = '/onboardingScreen';
   static const String otpScreen = '/otpScreen';
+  static const String notificationScreen = '/notificationScreen';
 
   static String getSplashScreen() => splashScreen;
   static String getLoginScreen() => loginScreen;
@@ -27,6 +29,7 @@ class AppRoute {
   static String getTakeSelfieScreen() => takeSelfieScreen;
   static String getOnboardingScreen() => onboardingScreen;
   static String getOtpScreen() => otpScreen;
+  static String getNotificationScreen() => notificationScreen;
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -40,5 +43,6 @@ class AppRoute {
     GetPage(name: takeSelfieScreen, page: () => const TakeSelfieScreen()),
     GetPage(name: onboardingScreen, page: () => const OnboardingScreen()),
     GetPage(name: otpScreen, page: () => const OTPScreen()),
+    GetPage(name: notificationScreen, page: () => const NotificationScreen()),
   ];
 }

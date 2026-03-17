@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:health_first/routes/app_routes.dart';
 
 class GreetingSection extends StatelessWidget {
   const GreetingSection({super.key});
@@ -54,7 +55,9 @@ class GreetingSection extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoute.notificationScreen);
+                },
                 icon: Icon(
                   Icons.notifications_none,
                   color: Colors.white,
