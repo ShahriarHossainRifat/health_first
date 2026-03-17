@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,22 +26,25 @@ class NotificationScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 20.h),
-            _buildNotificationSection('Today', [
-              _buildNotificationItem('14 FEB', 'Account Settings', 'Your password has been updated successfully.', '12:02 pm', true),
-              _buildNotificationItem('14 FEB', 'Subscription', 'Your pro subscription is about to finish.', '12:02 pm', true),
-              _buildNotificationItem('12 FEB', 'Bio-Feedback', 'You didn't measure your HRV for 3 days.', '3:25pm', true),
-              _buildNotificationItem('11 FEB', 'Sleep Hypnosis', 'Measure your sleep time to get healthier.', '3:25pm', false),
-            ]),
-            SizedBox(height: 30.h),
-            _buildNotificationSection('Yesterday', [
-              _buildNotificationItem('14 FEB', 'Subscription', 'Your pro subscription is about to finish.', '12:02 pm', false),
-              _buildNotificationItem('12 FEB', 'Bio-Feedback', 'You didn't measure your HRV for 3 days.', '3:25pm', false),
-            ]),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20.h),
+              _buildNotificationSection('Today', [
+                _buildNotificationItem('14 FEB', 'Account Settings', 'Your password has been updated successfully.', '12:02 pm', true),
+                _buildNotificationItem('14 FEB', 'Subscription', 'Your pro subscription is about to finish.', '12:02 pm', true),
+                _buildNotificationItem('12 FEB', 'Bio-Feedback', 'You didn\'t measure your HRV for 3 days.', '3:25pm', true),
+                _buildNotificationItem('11 FEB', 'Sleep Hypnosis', 'Measure your sleep time to get healthier.', '3:25pm', false),
+              ]),
+              SizedBox(height: 30.h),
+              _buildNotificationSection('Yesterday', [
+                _buildNotificationItem('14 FEB', 'Subscription', 'Your pro subscription is about to finish.', '12:02 pm', false),
+                _buildNotificationItem('12 FEB', 'Bio-Feedback', 'You didn\'t measure your HRV for 3 days.', '3:25pm', false),
+              ]),
+            ],
+          ),
         ),
       ),
     );
