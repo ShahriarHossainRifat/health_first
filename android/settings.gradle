@@ -1,27 +1,27 @@
+def flutterSdkPath = {
+    def properties = new Properties()
+    def localPropertiesFile = new File(settings.rootDir, "local.properties")
+    if (localPropertiesFile.exists()) {
+        properties.load(localPropertiesFile.newDataInputStream())
+    }
+    def flutterSdk = properties.getProperty('flutter.sdk')
+    if (flutterSdk != null) {
+        return flutterSdk
+    }
+    flutterSdk = System.getenv('FLUTTER_HOME')
+    if (flutterSdk != null) {
+        return flutterSdk
+    }
+    flutterSdk = System.getenv('FLUTTER_ROOT')
+    if (flutterSdk != null) {
+        return flutterSdk
+    }
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file or with a FLUTTER_HOME or FLUTTER_ROOT environment variable.")
+}()
+
+includeBuild(new File(flutterSdkPath, 'packages/flutter_tools/gradle'))
+
 pluginManagement {
-    def flutterSdkPath = {
-        def properties = new Properties()
-        def localPropertiesFile = new File(settings.rootDir, "local.properties")
-        if (localPropertiesFile.exists()) {
-            properties.load(localPropertiesFile.newDataInputStream())
-        }
-        def flutterSdk = properties.getProperty('flutter.sdk')
-        if (flutterSdk != null) {
-            return flutterSdk
-        }
-        flutterSdk = System.getenv('FLUTTER_HOME')
-        if (flutterSdk != null) {
-            return flutterSdk
-        }
-        flutterSdk = System.getenv('FLUTTER_ROOT')
-        if (flutterSdk != null) {
-            return flutterSdk
-        }
-        throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file or with a FLUTTER_HOME or FLUTTER_ROOT environment variable.")
-    }()
-
-    includeBuild(new File(flutterSdkPath, 'packages/flutter_tools/gradle'))
-
     repositories {
         google()
         mavenCentral()
