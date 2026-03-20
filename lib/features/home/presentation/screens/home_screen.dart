@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_first/features/home/presentation/screens/tabs/appointment_tab.dart';
 
 import 'tabs/home_tab.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const HomeTab(),
     const Scaffold(body: Center(child: Text("Mental"))),
     const Scaffold(body: Center(child: Text("Community"))),
-    const Scaffold(body: Center(child: Text("Appointment"))),
+    const AppointmentTab(),
     const Scaffold(body: Center(child: Text("Chat"))),
   ];
 
