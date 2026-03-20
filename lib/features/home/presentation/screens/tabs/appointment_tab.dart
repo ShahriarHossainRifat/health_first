@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:health_first/features/home/presentation/widgets/greeting_section.dart';
+import 'package:health_first/features/home/presentation/widgets/custom_app_bar.dart';
 
 class Appointment {
   final String date;
@@ -32,12 +32,14 @@ final List<Appointment> upcomingAppointments = [
 ];
 
 class AppointmentTab extends StatelessWidget {
-  const AppointmentTab({super.key});
+  final VoidCallback? onNotificationPressed;
+  const AppointmentTab({super.key, this.onNotificationPressed});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0D),
+      appBar: CustomAppBar(onNotificationPressed: onNotificationPressed),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -45,7 +47,6 @@ class AppointmentTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const GreetingSection(),
                 SizedBox(height: 24.h),
                 const BookNewAppointmentButton(),
                 SizedBox(height: 24.h),

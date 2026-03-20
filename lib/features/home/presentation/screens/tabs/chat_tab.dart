@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:health_first/features/home/presentation/widgets/greeting_section.dart';
+import 'package:health_first/features/home/presentation/widgets/custom_app_bar.dart';
 
 class ChatTab extends StatelessWidget {
-  const ChatTab({super.key});
+  final VoidCallback? onNotificationPressed;
+  const ChatTab({super.key, this.onNotificationPressed});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0D),
+      appBar: CustomAppBar(onNotificationPressed: onNotificationPressed),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const GreetingSection(),
             SizedBox(height: 24.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
