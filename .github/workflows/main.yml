@@ -8,53 +8,50 @@ permissions:
   contents: write
 
 env:
-  FLUTTER_VERSION: "3.38.6"
+  FLUTTER_VERSION: 3.27.4
 
 jobs:
-  build-release:
-    name: Build Release APK
+  build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v2
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          cache: true
 
-      - run: flutter pub get
+      - name: Install dependencies
+        run: flutter pub get
 
-      - name: Extract project metadata
-        id: meta
-        run: |
-          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //' | tr -d '[:space:]')
-          NAME=$(grep '^name:' pubspec.yaml | sed 's/name: //' | tr -d '[:space:]' | tr '_' '-')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "name=$NAME" >> $GITHUB_OUTPUT
-
-      - name: Build Release APKs (split per ABI)
+      - name: Build APK
         run: flutter build apk --release --split-per-abi
 
       - name: Rename APKs
         run: |
-          VERSION="${{ steps.meta.outputs.version }}"
-          NAME="${{ steps.meta.outputs.name }}"
-          cd build/app/outputs/flutter-apk
-          mv app-arm64-v8a-release.apk "${NAME}-v${VERSION}-arm64-v8a.apk"
-          mv app-armeabi-v7a-release.apk "${NAME}-v${VERSION}-armeabi-v7a.apk"
-          mv app-x86_64-release.apk "${NAME}-v${VERSION}-x86_64.apk"
+          mv build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk build/app/outputs/flutter-apk/health_first-armeabi-v7a-release.apk
+          mv build/app/outputs/flutter-apk/app-arm64-v8a-release.apk build/app/outputs/flutter-apk/health_first-arm64-v8a-release.apk
+          mv build/app/outputs/flutter-apk/app-x86_64-release.apk build/app/outputs/flutter-apk/health_first-x86_64-release.apk
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.meta.outputs.version }}
-          name: Release v${{ steps.meta.outputs.version }}
-          files: build/app/outputs/flutter-apk/${{ steps.meta.outputs.name }}-*.apk
-          draft: false
-          prerelease: false
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/app/outputs/flutter-apk/health_first-armeabi-v7a-release.apk
+          asset_name: health_first-armeabi-v7a-release.apk
+          asset_content_type: application/vnd.android.package-archive
