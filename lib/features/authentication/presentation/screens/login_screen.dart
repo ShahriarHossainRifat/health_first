@@ -228,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen>
                       children: [
                         Image.network('https://img.icons8.com/color/48/000000/google-logo.png', height: 40.h),
                         SizedBox(width: 30.w),
-                        Image.network('https://img.icons8.com/ios-glyphs/30/ffffff/apple.png', height: 40.h),
+                        Image.network('https://img.icons8.com/ios-filled/50/ffffff/mac-os.png', height: 40.h),
                       ],
                     ),
                   ],
