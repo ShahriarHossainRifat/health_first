@@ -25,17 +25,17 @@ class CustomBottomNavBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildNavItem(Icons.home, 'Home', 0),
-          _buildNavItem(Icons.sentiment_satisfied, 'Mental', 1),
-          _buildNavItem(Icons.group, 'Community', 2),
-          _buildNavItem(Icons.event, 'Appointment', 3),
-          _buildNavItem(Icons.chat, 'Chat', 4),
+          _buildNavItem(Icons.home, 0),
+          _buildNavItem(Icons.sentiment_satisfied, 1),
+          _buildNavItem(Icons.group, 2),
+          _buildNavItem(Icons.event, 3),
+          _buildNavItem(Icons.chat, 4),
         ],
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, int index) {
+  Widget _buildNavItem(IconData icon, int index) {
     final bool isSelected = currentIndex == index;
     return GestureDetector(
       onTap: () => onTap(index),
@@ -46,15 +46,6 @@ class CustomBottomNavBar extends StatelessWidget {
             icon,
             color: isSelected ? const Color(0xFF0057FF) : Colors.white,
             size: 24.sp,
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? const Color(0xFF0057FF) : Colors.white,
-              fontSize: 12.sp,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
           ),
         ],
       ),
